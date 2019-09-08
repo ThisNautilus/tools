@@ -21,7 +21,7 @@
             <td>{{tool.name}}</td>
             <td>{{tool.model}}</td>
             <td>{{tool.count}}</td>
-            <td>归还</td>
+            <td @click="toolIn(tool.id)"><a href="javasvript:;">归还</a></td>
           </tr>
         </tbody>
       </table>
@@ -66,6 +66,15 @@ export default {
                 "count": "5"
               }
             ]
+    }
+  },
+  methods:{
+    toolIn(id){
+      this.tools.forEach(tool=>{
+        if(tool.id === id){
+          tool.count++;
+        }
+      })
     }
   }
 }

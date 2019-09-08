@@ -2,7 +2,7 @@
   <div class="toolsout">
     <div class="input-group">
       <span class="input-group-addon" id="sizing-addon2">查找</span>
-      <input type="text" style="width:400px;" class="form-control" placeholder="请输入工具名称" aria-describedby="sizing-addon2">
+      <input type="text" style="width:400px;" class="form-control" placeholder="请输入工具名称" v-model="keywords">
     </div>
     <div class="panel panel-default">
       <table class="table text-center">
@@ -16,15 +16,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="tool in tools" :key="tool.id">
+          <tr v-for="tool in toolsBy(keywords)" :key="tool.id">
             <td>{{tool.id}}</td>
             <td>{{tool.name}}</td>
             <td>{{tool.model}}</td>
             <td>{{tool.count}}</td>
-            <td>借出</td>
+            <td @click="toolOut(tool.id)"><a href="javasvript:;">借出</a></td>
           </tr>
         </tbody>
       </table>
+    </div>
+    <div v-show="isShow" class="alert alert-warning alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <strong>{{showName}}已借完，暂无可用工具！</strong>
     </div>
   </div>
 </template>
@@ -34,38 +38,62 @@ export default {
   name: 'ToolsOut',
   data () {
     return {
+      isShow:false,
+      showName:'',
+      keywords:'',
       tools:[
               {
-                "id": "101",
+                "id": 101,
                 "name": "扳手",
                 "model": "M5",
-                "count": "25"
+                "count": 25
               },
               {
-                "id": "102",
+                "id": 102,
                 "name": "手电钻",
                 "model": "S12",
-                "count": "3"
+                "count": 3
               },
               {
-                "id": "103",
+                "id": 103,
                 "name": "裁纸刀",
                 "model": "C15",
-                "count": "10"
+                "count": 10
               },
               {
-                "id": "104",
+                "id": 104,
                 "name": "手电筒",
                 "model": "L500",
-                "count": "4"
+                "count": 4
               },
               {
-                "id": "105",
+                "id": 105,
                 "name": "卷尺",
                 "model": "J300",
-                "count": "5"
+                "count": 5
               }
             ]
+    }
+  },
+  methods:{
+    toolOut(id){
+      this.tools.forEach(tool=>{
+        if(tool.id === id){
+          if(tool.count>0){
+            tool.count--;
+          }else{
+            this.isShow = true;
+            this.showName = tool.name;
+          }
+        }
+      })
+    },
+    toolsBy(keywords){
+      return this.tools.filter(tool => {
+        if(tool.name.includes(keywords)){
+          return tool;
+        }
+      })
     }
   }
 }
