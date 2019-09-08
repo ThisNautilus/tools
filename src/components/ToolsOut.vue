@@ -13,6 +13,7 @@
             <td>型号</td>
             <td>数量</td>
             <td>操作</td>
+            <td>正在使用</td>
           </tr>
         </thead>
         <tbody>
@@ -22,6 +23,7 @@
             <td>{{tool.model}}</td>
             <td>{{tool.count}}</td>
             <td @click="toolOut(tool.id)"><a href="javasvript:;">借出</a></td>
+            <td><span>{{tool.using | userFormat }}</span></td>
           </tr>
         </tbody>
       </table>
@@ -46,31 +48,36 @@ export default {
                 "id": 101,
                 "name": "扳手",
                 "model": "M5",
-                "count": 25
+                "count": 25,
+                'using':['N331']
               },
               {
                 "id": 102,
                 "name": "手电钻",
                 "model": "S12",
-                "count": 3
+                "count": 3,
+                'using':[]
               },
               {
                 "id": 103,
                 "name": "裁纸刀",
                 "model": "C15",
-                "count": 10
+                "count": 10,
+                'using':['N230','N189']
               },
               {
                 "id": 104,
                 "name": "手电筒",
                 "model": "L500",
-                "count": 4
+                "count": 4,
+                'using':[]
               },
               {
                 "id": 105,
                 "name": "卷尺",
                 "model": "J300",
-                "count": 5
+                "count": 5,
+                'using':['N521']
               }
             ]
     }
@@ -94,6 +101,11 @@ export default {
           return tool;
         }
       })
+    }
+  },
+  filters:{
+    userFormat:function(users){
+      return users.join(','); // 注意：数组才可以使用join()方法
     }
   }
 }

@@ -7,8 +7,12 @@
 </template>
 
 <script>
+import login from './Login'
 export default {
-  name: 'Header'
+  name: 'Header',
+  components:{
+    login
+  }
 }
 </script>
 
@@ -17,6 +21,7 @@ export default {
 .header {
   width: 100%;
   background-color: #336699;
+  height: 60px;
 }
 .header .tool-header {
   width: 1200px;
