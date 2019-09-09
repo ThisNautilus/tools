@@ -17,14 +17,18 @@
         </thead>
         <tbody>
           <tr v-for="tool in tools" :key="tool.id">
-            <td>{{tool.id}}</td>
-            <td>{{tool.name}}</td>
-            <td>{{tool.model}}</td>
-            <td>{{tool.count}}</td>
-            <td @click="toolIn(tool.id)"><a href="javasvript:;">归还</a></td>
+            <td style="width:15%;">{{tool.id}}</td>
+            <td style="width:20%;">{{tool.name}}</td>
+            <td style="width:20%;">{{tool.model}}</td>
+            <td style="width:15%;">{{tool.count}}</td>
+            <td style="width:30%;"><input type="text" @keyup.enter="getUserNum(tool.id)" placeholder="输入工号归还" @input="inputUserNum"></td>
           </tr>
         </tbody>
       </table>
+    </div>
+    <div v-show="isShow" class="alert alert-warning alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <strong>{{showName}}归还成功！</strong>
     </div>
   </div>
 </template>
@@ -32,6 +36,9 @@
 <script>
 export default {
   name: 'ToolsIn',
+  userNum:'',
+  isShow:false,
+  showName:'',
   data () {
     return {
       tools:[
@@ -75,6 +82,19 @@ export default {
           tool.count++;
         }
       })
+    },
+    getUserNum(id){
+      this.tools.forEach(tool=>{
+        if(tool.id === id){
+          tool.count++;
+          this.isShow = true;
+          this.showName = tool.name;
+          event.target.value = '';
+        }
+      })
+    },
+    inputUserNum(){
+      this.userNum = event.target.value;
     }
   }
 }

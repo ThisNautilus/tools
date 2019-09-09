@@ -18,12 +18,14 @@
         </thead>
         <tbody>
           <tr v-for="tool in toolsBy(keywords)" :key="tool.id">
-            <td>{{tool.id}}</td>
-            <td>{{tool.name}}</td>
-            <td>{{tool.model}}</td>
-            <td>{{tool.count}}</td>
-            <td @click="toolOut(tool.id)"><a href="javasvript:;">借出</a></td>
-            <td><span>{{tool.using | userFormat }}</span></td>
+            <td style="width:10%;">{{tool.id}}</td>
+            <td style="width:15%;">{{tool.name}}</td>
+            <td style="width:15%;">{{tool.model}}</td>
+            <td style="width:10%;">{{tool.count}}</td>
+            <!-- <td style="width:20%;"><input type="text" @keyup.enter="getUserNum(tool.id)" placeholder="输入工号借出" v-model="userNum"></td> -->
+            <!-- <td style="width:20%;"><input type="text" @keyup.enter="getUserNum(tool.id)" placeholder="输入工号借出" :value="userNum" @input="inputUserNum"></td> v-bind和v-on实现v-model -->  
+            <td style="width:20%;"><input type="text" @keyup.enter="getUserNum(tool.id)" placeholder="输入工号借出" @input="inputUserNum"></td>
+            <td style="width:30%;"><span>{{tool.using | userFormat }}</span></td>
           </tr>
         </tbody>
       </table>
@@ -43,6 +45,7 @@ export default {
       isShow:false,
       showName:'',
       keywords:'',
+      userNum:'',
       tools:[
               {
                 "id": 101,
@@ -83,24 +86,29 @@ export default {
     }
   },
   methods:{
-    toolOut(id){
-      this.tools.forEach(tool=>{
-        if(tool.id === id){
-          if(tool.count>0){
-            tool.count--;
-          }else{
-            this.isShow = true;
-            this.showName = tool.name;
-          }
-        }
-      })
-    },
     toolsBy(keywords){
       return this.tools.filter(tool => {
         if(tool.name.includes(keywords)){
           return tool;
         }
       })
+    },
+    getUserNum(id){
+      this.tools.forEach(tool=>{
+        if(tool.id === id){
+          if(tool.count>0){
+            tool.count--;
+            tool.using.push(this.userNum);
+          }else{
+            this.isShow = true;
+            this.showName = tool.name;
+          }
+          event.target.value = ''; // 清空工号文本框
+        }
+      })
+    },
+    inputUserNum(event){
+      this.userNum = event.target.value;
     }
   },
   filters:{
