@@ -2,7 +2,7 @@
 <div class="wrap">
         <div class="wpn">
             <div class="form-data pos">
-                <a href=""><img src="./img/logo.png" class="head-logo"></a>
+                <a href=""><img src="../../static/img/logo.png" class="head-logo"></a>
                 <form>
                     <p class="p-input pos">
                         <label for="tel">工号</label>
@@ -23,7 +23,7 @@
                     </p>
                 </form>
                 <button class="lang-btn">注册</button>
-                <div class="bottom-info">已有账号，<a href="./login.html">马上登录</a></div>
+                <div class="bottom-info">已有账号，<router-link to="/login">马上登录</router-link></div>
                 <p class="right">Powered by © 鹦鹉螺</p>
             </div>
         </div>
@@ -32,11 +32,7 @@
 
 <script>
 export default {
-  name: 'Reg',
-  data(){
-    return {
-    }
-  }
+  name: 'Reg'
 }
 </script>
 

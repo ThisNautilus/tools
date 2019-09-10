@@ -4,8 +4,8 @@ import ToolsIn from '../components/ToolsIn.vue'
 import ToolsOut from '../components/ToolsOut.vue'
 import Home from '../components/Home.vue'
 import AddTools from '../components/AddTools.vue'
-// import Login from '../components/Login.vue'
-// import Reg from '../components/Reg.vue'
+import Login from '../components/Login.vue'
+import Reg from '../components/Reg.vue'
 
 Vue.use(Router)
 
@@ -31,15 +31,15 @@ export default new Router({
             name: 'addtools',
             component: AddTools
         },
-        // {
-        //     path: '/login',
-        //     name: 'login',
-        //     component: Login
-        // },
-        // {
-        //     path: '/reg',
-        //     name: 'reg',
-        //     component: Reg
-        // }
+        {
+            path: '/login',
+            name: 'login',
+            component: Login
+        },
+        {
+            path: '/reg',
+            name: 'reg',
+            component: Reg
+        }
     ]
 })

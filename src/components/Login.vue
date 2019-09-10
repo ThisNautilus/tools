@@ -14,8 +14,8 @@
                 </p>
             </div>
             <div class="r-forget cl">
-                <a href="./reg.html" class="z">账号注册</a>
-                <a href="./getpass.html" class="y">忘记密码</a>
+                <router-link to="/reg" class="z">账号注册</router-link>
+                <router-link to="javasscript:;" class="y">忘记密码</router-link>
             </div>
             <button class="lang-btn off log-btn">登录</button>
             <p class="right">Powered by © 鹦鹉螺</p>

@@ -2,7 +2,7 @@
   <div class="toolsin">
     <div class="input-group">
       <span class="input-group-addon" id="sizing-addon2">查找</span>
-      <input type="text" style="width:400px;" class="form-control" placeholder="请输入工具名称" aria-describedby="sizing-addon2">
+      <input type="text" style="width:400px;" class="form-control" placeholder="请输入工具名称" aria-describedby="sizing-addon2" v-model="keywords">
     </div>
     <div class="panel panel-default">
       <table class="table text-center">
