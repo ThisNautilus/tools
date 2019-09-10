@@ -27,10 +27,10 @@
         </tbody>
       </table>
     </div>
-    <div v-show="isSuccess" class="alert alert-info alert-dismissible" role="alert">
+    <!-- <div v-show="isSuccess" class="alert alert-info alert-dismissible" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       <strong>{{showName}}归还成功！</strong>
-    </div>
+    </div> -->
   </div>
 </template>
 

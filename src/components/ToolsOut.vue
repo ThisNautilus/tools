@@ -30,14 +30,14 @@
         </tbody>
       </table>
     </div>
-    <div v-show="isSuccess" class="alert alert-success alert-dismissible" role="alert">
+    <!-- <div v-show="isSuccess" class="alert alert-success alert-dismissible" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       <strong>{{showName}}已成功借出！</strong>
-    </div>
-    <div v-show="isFailed" class="alert alert-info alert-dismissible" role="alert">
+    </div> -->
+    <!-- <div v-show="isFailed" class="alert alert-info alert-dismissible" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       <strong>{{showName}}已借完，暂无可用工具！</strong>
-    </div>
+    </div> -->
   </div>
 </template>
 
