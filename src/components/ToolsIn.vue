@@ -16,17 +16,18 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="tool in tools" :key="tool.id">
-            <td style="width:15%;">{{tool.id}}</td>
-            <td style="width:20%;">{{tool.name}}</td>
-            <td style="width:20%;">{{tool.model}}</td>
-            <td style="width:15%;">{{tool.count}}</td>
-            <td style="width:30%;"><input type="text" @keyup.enter="getUserNum(tool.id)" placeholder="输入工号归还" @input="inputUserNum"></td>
+          <tr v-for="tool in toolsBy(keywords)" :key="tool.id">
+            <td style="width:10%;">{{tool.id}}</td>
+            <td style="width:15%;">{{tool.name}}</td>
+            <td style="width:15%;">{{tool.model}}</td>
+            <td style="width:10%;">{{tool.count}}</td>
+            <td style="width:20%;"><input type="text" @keyup.enter="getUserNum(tool.id)" placeholder="输入工号归还" @input="inputUserNum"></td>
+            <td style="width:30%;"><span>{{tool.using | userFormat }}</span></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div v-show="isShow" class="alert alert-warning alert-dismissible" role="alert">
+    <div v-show="isSuccess" class="alert alert-info alert-dismissible" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       <strong>{{showName}}归还成功！</strong>
     </div>
@@ -36,65 +37,39 @@
 <script>
 export default {
   name: 'ToolsIn',
-  userNum:'',
-  isShow:false,
-  showName:'',
   data () {
     return {
-      tools:[
-              {
-                "id": "101",
-                "name": "扳手",
-                "model": "M5",
-                "count": "25"
-              },
-              {
-                "id": "102",
-                "name": "手电钻",
-                "model": "S12",
-                "count": "3"
-              },
-              {
-                "id": "103",
-                "name": "裁纸刀",
-                "model": "C15",
-                "count": "10"
-              },
-              {
-                "id": "104",
-                "name": "手电筒",
-                "model": "L500",
-                "count": "4"
-              },
-              {
-                "id": "105",
-                "name": "卷尺",
-                "model": "J300",
-                "count": "5"
-              }
-            ]
+      isSuccess:false,
+      showName:'',
+      keywords:''
     }
   },
   methods:{
-    toolIn(id){
-      this.tools.forEach(tool=>{
-        if(tool.id === id){
-          tool.count++;
+    toolsBy(keywords){
+      return this.$store.state.tools.filter(tool => {
+        if(tool.name.includes(keywords)){
+          return tool;
         }
       })
     },
     getUserNum(id){
-      this.tools.forEach(tool=>{
-        if(tool.id === id){
-          tool.count++;
-          this.isShow = true;
+      this.$store.commit("increment",id);
+      this.isSuccess = this.$store.state.flag;
+      event.target.value = ''; // 清空工号文本框
+      this.$store.state.tools.forEach(tool =>  {
+        if(tool.id == id){
           this.showName = tool.name;
-          event.target.value = '';
         }
       })
     },
-    inputUserNum(){
-      this.userNum = event.target.value;
+    inputUserNum(event){
+      // this.userNum = event.target.value;
+      this.$store.commit("getUserNum",event.target.value)
+    }
+  },
+  filters:{
+    userFormat:function(users){
+      return users.join(','); // 注意：数组才可以使用join()方法
     }
   }
 }

@@ -30,7 +30,11 @@
         </tbody>
       </table>
     </div>
-    <div v-show="isShow" class="alert alert-warning alert-dismissible" role="alert">
+    <div v-show="isSuccess" class="alert alert-success alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <strong>{{showName}}已成功借出！</strong>
+    </div>
+    <div v-show="isFailed" class="alert alert-info alert-dismissible" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       <strong>{{showName}}已借完，暂无可用工具！</strong>
     </div>
@@ -42,73 +46,32 @@ export default {
   name: 'ToolsOut',
   data () {
     return {
-      isShow:false,
+      isSuccess:false,
       showName:'',
-      keywords:'',
-      userNum:'',
-      tools:[
-              {
-                "id": 101,
-                "name": "扳手",
-                "model": "M5",
-                "count": 25,
-                'using':['N331']
-              },
-              {
-                "id": 102,
-                "name": "手电钻",
-                "model": "S12",
-                "count": 3,
-                'using':[]
-              },
-              {
-                "id": 103,
-                "name": "裁纸刀",
-                "model": "C15",
-                "count": 10,
-                'using':['N230','N189']
-              },
-              {
-                "id": 104,
-                "name": "手电筒",
-                "model": "L500",
-                "count": 4,
-                'using':[]
-              },
-              {
-                "id": 105,
-                "name": "卷尺",
-                "model": "J300",
-                "count": 5,
-                'using':['N521']
-              }
-            ]
+      keywords:''
     }
   },
   methods:{
     toolsBy(keywords){
-      return this.tools.filter(tool => {
+      return this.$store.state.tools.filter(tool => {
         if(tool.name.includes(keywords)){
           return tool;
         }
       })
     },
     getUserNum(id){
-      this.tools.forEach(tool=>{
-        if(tool.id === id){
-          if(tool.count>0){
-            tool.count--;
-            tool.using.push(this.userNum);
-          }else{
-            this.isShow = true;
-            this.showName = tool.name;
-          }
-          event.target.value = ''; // 清空工号文本框
+      this.$store.commit("decrement",id);
+      event.target.value = ''; // 清空工号文本框
+      this.isSuccess = true;
+      this.$store.state.tools.forEach(tool =>  {
+        if(tool.id == id){
+          this.showName = tool.name;
         }
       })
     },
     inputUserNum(event){
-      this.userNum = event.target.value;
+      // this.userNum = event.target.value;
+      this.$store.commit("getUserNum",event.target.value)
     }
   },
   filters:{
