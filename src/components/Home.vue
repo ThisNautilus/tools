@@ -13,12 +13,18 @@
         </div>
       </div>
     </div>
+    <!-- <button @click="log">点击</button> -->
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Home'
+  name: 'Home',
+  methods:{
+    // log(){
+    //   console.log(this.$router.app.$options.store.state.isLogin)
+    // }
+  }
 }
 </script>
 
