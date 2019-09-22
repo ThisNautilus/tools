@@ -41,7 +41,8 @@ export default {
       this.newTool.model = this.model;
       this.newTool.count = this.count;
       this.newTool.using = this.using;
-      this.$store.commit("pushTool",this.newTool)
+      // this.$store.commit("pushTool",this.newTool)
+      this.$store.dispatch('updateTools',this.newTool)
       console.log(this.$store.state.tools);
       this.id = this.name = this.model = this.count = '';
       this.$router.push('/out');

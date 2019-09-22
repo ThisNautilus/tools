@@ -2,7 +2,7 @@
   <div class="wrap">
     <div class="wpn">
         <div class="form-data pos">
-            <a href=""><img src="../../static/img/logo.png" class="head-logo"></a>
+            <!-- <a href=""><img src="../../static/img/logo.png" class="head-logo"></a> -->
             <div class="form1">
                 <p class="p-input pos">
                     <!-- <label for="num">账号</label> -->
@@ -29,24 +29,26 @@
 
 <script>
 export default {
-  name: 'Login',
-  data(){
-      return {
-          user:'',
-          pw:''
-      }
-  },
-  methods:{
-      alert(){
-          alert("请与管理员联系！")
-      },
-      login(){
-          if(this.user == this.$store.state.user && this.pw == this.$store.state.pw){
-              this.$store.state.isLogin = true;
-          }
-          console.log(this.$store.state);
-      }
-  }
+name: 'Login',
+data(){
+    return {
+        user:'',
+        pw:''
+    }
+},
+methods:{
+    alert(){
+        alert("请与管理员联系！")
+    },
+    login(){
+        let loginMessage = {
+            user:this.user,
+            pw:this.pw
+        }
+        sessionStorage.setItem("loginMessage",JSON.stringify(loginMessage))
+        this.$router.push('/home')
+    }
+}
 }
 </script>
 

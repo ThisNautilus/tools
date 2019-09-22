@@ -1,14 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { stat } from 'fs';
 
 Vue.use(Vuex)
 
 // 1.1 vuex状态管理
 const store = new Vuex.Store({
     state: {
-        isLogin: false,
-        user: "admin",
-        pw: 'admin',
         userNum: '',
         flag: false, // 该标志用处：当归还工具时，如果归还成功，在使用者数组中剔除该工号，并返回true
         tools: [{
@@ -79,6 +77,13 @@ const store = new Vuex.Store({
         },
         pushTool(state, newVal) {
             state.tools.push(newVal);
+        }
+    },
+    actions: {
+        updateTools(context, obj) {
+            setTimeout(() => {
+                context.commit('pushTool', obj)
+            }, 1000)
         }
     }
 })

@@ -5,7 +5,6 @@ import ToolsOut from '../components/ToolsOut.vue'
 import Home from '../components/Home.vue'
 import AddTools from '../components/AddTools.vue'
 import Login from '../components/Login.vue'
-// import Reg from '../components/Reg.vue'
 
 Vue.use(Router)
 
@@ -50,18 +49,6 @@ const router = new Router({
             meta: {
                 title: "登录"
             }
-        },
-        // {
-        //     path: '/reg',
-        //     name: 'reg',
-        //     component: Reg,
-        //     meta: {
-        //         title: "注册"
-        //     }
-        // },
-        {
-            path: '/',
-            redirect: '/login'
         }
     ]
 });
@@ -69,23 +56,18 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
     document.title = to.meta.title;
 
-    const nextRoute = ['home', 'out', 'in', 'add'];
-    // const isLogin = store.state.isLogin;
-    const isLogin = router.app.$options.store.state.isLogin;
-    //跳转至上述4个页面 
-    if (nextRoute.indexOf(to.name) >= 0) {
-        //未登录 
-        if (!isLogin) {
-            router.push({ name: 'login' })
+    if (to.path != '/login') {
+        if (!sessionStorage.getItem("loginMessage")) {
+            // console.log("登录失败");
+            return next('/login');
         }
+        // else if (JSON.parse(sessionStorage.getItem("loginMessage")).user == 'admin' && JSON.parse(sessionStorage.getItem("loginMessage")).pw == "admin") {
+        //     // console.log(JSON.parse(sessionStorage.getItem("loginMessage")))
+        //     // console.log(JSON.parse(sessionStorage.getItem("loginMessage")).user)
+        //     // console.log(JSON.parse(sessionStorage.getItem("loginMessage")).pw)
+        //     return next('/home');
+        // }
     }
-    //已登录的情况再去登录页，跳转至首页 
-    if (to.name === 'login') {
-        if (isLogin) {
-            router.push({ name: 'home' });
-        }
-    }
-
     next();
 });
 

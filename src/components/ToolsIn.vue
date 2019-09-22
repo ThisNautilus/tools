@@ -44,6 +44,9 @@ export default {
       keywords:''
     }
   },
+  updated(){
+    this.toolsBy(keywords);
+  },
   methods:{
     toolsBy(keywords){
       return this.$store.state.tools.filter(tool => {

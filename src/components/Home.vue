@@ -19,12 +19,7 @@
 
 <script>
 export default {
-  name: 'Home',
-  methods:{
-    // log(){
-    //   console.log(this.$router.app.$options.store.state.isLogin)
-    // }
-  }
+  name: 'Home'
 }
 </script>
 
